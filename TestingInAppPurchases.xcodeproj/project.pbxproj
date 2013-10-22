@@ -27,6 +27,7 @@
 		1A4FB47818151E2400DE00C4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4FB47118151E2300DE00C4 /* main.m */; };
 		1A4FB47B18151E5700DE00C4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A4FB47A18151E5700DE00C4 /* Images.xcassets */; };
 		1A4FB47D1815602B00DE00C4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A4FB47C1815602B00DE00C4 /* StoreKit.framework */; };
+		1A7D74C81816734C00962686 /* UIView+AutolayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7D74C71816734C00962686 /* UIView+AutolayoutHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,8 @@
 		1A4FB47318151E2300DE00C4 /* TestingInAppPurchases-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestingInAppPurchases-Prefix.pch"; sourceTree = "<group>"; };
 		1A4FB47A18151E5700DE00C4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1A4FB47C1815602B00DE00C4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		1A7D74C61816734C00962686 /* UIView+AutolayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AutolayoutHelper.h"; sourceTree = "<group>"; };
+		1A7D74C71816734C00962686 /* UIView+AutolayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutolayoutHelper.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +189,8 @@
 		1A4FB46A18151E2300DE00C4 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				1A7D74C61816734C00962686 /* UIView+AutolayoutHelper.h */,
+				1A7D74C71816734C00962686 /* UIView+AutolayoutHelper.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -354,6 +359,7 @@
 				1A1B0481181560DB0068D399 /* IAPHelper.m in Sources */,
 				1A1B0484181564580068D399 /* SpecificIAPHelper.m in Sources */,
 				1A4FB47618151E2400DE00C4 /* AppDelegate.m in Sources */,
+				1A7D74C81816734C00962686 /* UIView+AutolayoutHelper.m in Sources */,
 				1A1B048E18156EEB0068D399 /* IAPProduct.m in Sources */,
 				1A1B0487181565710068D399 /* Singleton.m in Sources */,
 			);

@@ -10,5 +10,6 @@
 #define TestingInAppPurchases_Global_h
 
 #import "Singleton.h"
+#import "UIView+AutolayoutHelper.h"
 
 #endif
