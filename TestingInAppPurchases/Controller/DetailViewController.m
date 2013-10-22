@@ -53,14 +53,24 @@
 {
 	[super updateViewConstraints];
 	
-	//	remove all constraints
-	[self.view removeConstraints:self.view.constraints];
+	NSLog(@"CONSTRAINTS: %@", self.view.constraints);
+	
+	//	remove all constraints not involving the top layout guide
+	for (NSLayoutConstraint *constraint in self.view.constraints)
+	{
+		if ((constraint.firstItem == self.topLayoutGuide && constraint.secondItem == self.view) ||
+			(constraint.secondItem == self.topLayoutGuide && constraint.firstItem == self.view) ||
+			(constraint.firstItem == self.topLayoutGuide && constraint.firstAttribute == NSLayoutAttributeHeight) ||
+			(constraint.firstItem == self.topLayoutGuide && constraint.firstAttribute == NSLayoutAttributeWidth))
+			continue;
+		[self.view removeConstraint:constraint];
+	}
 	
 	//	create the dictionary of views
 	NSDictionary *viewsDictionary	= @{@"cancelButton"		: self.cancelButton,
 										@"pauseButton"		: self.pauseButton,
 										@"resumeButton"		: self.resumeButton,
-										@"descriptonView"	: self.descriptionTextView,
+										@"descriptionView"	: self.descriptionTextView,
 										@"priceLabel"		: self.priceLabel,
 										@"titleLabel"		: self.titleLabel,
 										@"top"				: self.topLayoutGuide,
@@ -74,7 +84,7 @@
 														  attribute:NSLayoutAttributeCenterX
 														 multiplier:1.0f
 														   constant:0.0f]];
-	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[top][titleLabel][versionLabel]"
+	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[top]-[titleLabel]-[versionLabel]"
 																	  options:kNilOptions
 																	  metrics:nil
 																		views:viewsDictionary]];
@@ -85,7 +95,11 @@
 																	  metrics:nil
 																		views:viewsDictionary]];
 	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[versionLabel]-[priceLabel]-[descriptionView(128)]"
-																	  options:NSLayoutFormatAlignAllLeading
+																	  options:NSLayoutFormatAlignAllLeft
+																	  metrics:nil
+																		views:viewsDictionary]];
+	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[descriptionView]-|"
+																	  options:kNilOptions
 																	  metrics:nil
 																		views:viewsDictionary]];
 	//	align the buttons and lay them out horizontally
@@ -117,6 +131,7 @@
 {
 	if (self = [super init])
 	{
+		[self initialiseSubviews];
 	}
 	
 	return self;
@@ -147,6 +162,10 @@
 	self.versionLabel					= [[UILabel alloc] init];
 	
 	//	configure the labels
+	self.descriptionTextView.font		= [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+	self.priceLabel.font				= [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+	self.titleLabel.font				= [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+	self.versionLabel.font				= [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
 	self.titleLabel.textAlignment		= NSTextAlignmentCenter;
 }
 
@@ -253,7 +272,9 @@
 	else
 		self.navigationItem.rightBarButtonItem	= nil;
 	
-	
+	self.cancelButton.hidden			= YES;
+	self.pauseButton.hidden				= YES;
+	self.resumeButton.hidden			= YES;
 }
 
 #pragma mark - View Lifecycle
@@ -265,10 +286,22 @@
 {
 	[super viewDidLoad];
 	
-	self.view.backgroundColor			= [[UIColor alloc] initWithRed:165.0f / 255.0f green:165.0f / 255.0f blue:165.0f / 255.0f alpha:1.0f];
 	//	add the subviews and trigger layout
 	[self addAllSubviews];
 	[self.view setNeedsUpdateConstraints];
+}
+
+/**
+ *	Notifies the view controller that its view is about to be added to a view hierarchy.
+ *
+ *	@param	animated					If YES, the view is being added to the window using an animation.
+ */
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	
+	//	refresh the view before it appears
+	[self refresh];
 }
 
 @end

@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 &Beyond. All rights reserved.
 //
 
+#import "DetailViewController.h"
 #import "IAPProduct.h"
 #import "MainViewController.h"
 #import "ProductCell.h"
@@ -151,6 +152,22 @@ static NSString *const CellIdentifier	= @"CellIdentifier";
  numberOfRowsInSection:(NSInteger)section
 {
 	return self.products.count;
+}
+
+#pragma mark - UITableViewDelegate Methods
+
+/**
+ *	Tells the delegate that the specified row is now selected.
+ *
+ *	@param	tableView					A table-view object informing the delegate about the new row selection.
+ *	@param	indexPath					An index path locating the new selected row in tableView.
+ */
+- (void)	  tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	DetailViewController *detailVC		= [[DetailViewController alloc] init];
+	detailVC.product					= self.products[indexPath.row];
+	[self.navigationController pushViewController:detailVC animated:YES];
 }
 
 #pragma mark - View Lifecycle
