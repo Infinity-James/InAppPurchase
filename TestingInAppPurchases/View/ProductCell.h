@@ -10,7 +10,13 @@
 
 @interface ProductCell : UITableViewCell {}
 
+/**	The detail subtitle label.	*/
+@property (nonatomic, strong, readonly)	UILabel		*detailLabel;
+/**	A view to display the icon of the product.	*/
+@property (nonatomic, strong, readonly) UIImageView	*iconView;
+/**	The main title label.	*/
+@property (nonatomic, strong, readonly)	UILabel		*mainLabel;
 /**	A label displaying the price of the product.	*/
-@property (nonatomic, strong)	UILabel		*priceLabel;
+@property (nonatomic, strong, readonly)	UILabel		*priceLabel;
 
 @end

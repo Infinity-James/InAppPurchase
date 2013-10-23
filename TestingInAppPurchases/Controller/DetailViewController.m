@@ -7,13 +7,14 @@
 //
 
 #import "DetailViewController.h"
+#import "SpecificIAPHelper.h"
 #import "IAPProduct.h"
 
 @import StoreKit;
 
 #pragma mark - Detail View Controller Private Class Extension
 
-@interface DetailViewController () {}
+@interface DetailViewController () <IAPHelperProductObserver> {}
 
 #pragma mark - Private Properties - Buttons
 
@@ -46,14 +47,14 @@
 
 @implementation DetailViewController {}
 
+#pragma mark - Autolayout Methods
+
 /**
  *	Called when the view controller’s view needs to update its constraints.
  */
 - (void)updateViewConstraints
 {
 	[super updateViewConstraints];
-	
-	NSLog(@"CONSTRAINTS: %@", self.view.constraints);
 	
 	//	remove all constraints not involving the top layout guide
 	for (NSLayoutConstraint *constraint in self.view.constraints)
@@ -120,6 +121,16 @@
 																		views:viewsDictionary]];
 }
 
+/**
+ *	Sent to an observer when a product has updated.
+ *
+ *	@param	product						The product which has been updated in some way.
+ */
+- (void)product:(IAPProduct *)product updatedWithStatus:(IAPHelperProductStatusUpdate)statusUpdate
+{
+	[self refresh];
+}
+
 #pragma mark - Initialisation
 
 /**
@@ -178,7 +189,7 @@
  */
 - (void)buyTapped:(UIBarButtonItem *)buyItem
 {
-	
+	[[SpecificIAPHelper sharedInstance] buyProduct:self.product];
 }
 
 /**
@@ -286,6 +297,8 @@
 {
 	[super viewDidLoad];
 	
+	self.view.backgroundColor			= [UIColor whiteColor];
+	
 	//	add the subviews and trigger layout
 	[self addAllSubviews];
 	[self.view setNeedsUpdateConstraints];
@@ -302,6 +315,20 @@
 	
 	//	refresh the view before it appears
 	[self refresh];
+	
+	[[SpecificIAPHelper sharedInstance] addProductObserver:self];
+}
+
+/**
+ *	Notifies the view controller that its view is about to be removed from a view hierarchy.
+ *
+ *	@param	animated					If YES, the disappearance of the view is being animated.
+ */
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+	
+	[[SpecificIAPHelper sharedInstance] removeProductObserver:self];
 }
 
 @end

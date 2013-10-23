@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
+#import "SpecificIAPHelper.h"
 
 #pragma mark - App Delegate Private Class Extension
 
@@ -35,6 +36,9 @@
 {
     self.window							= [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor			= [UIColor whiteColor];
+	
+	//	initialise the IAPHelper as soon as the app launches
+	[SpecificIAPHelper sharedInstance];
 	
 	MainViewController *mainVC			= [[MainViewController alloc] init];
 	UINavigationController *navigation	= [[UINavigationController alloc] initWithRootViewController:mainVC];

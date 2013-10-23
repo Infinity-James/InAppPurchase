@@ -9,7 +9,10 @@
 #ifndef TestingInAppPurchases_Global_h
 #define TestingInAppPurchases_Global_h
 
+#import "NSArray+PerformSelector.h"
 #import "Singleton.h"
 #import "UIView+AutolayoutHelper.h"
+
+static NSString *const TestingProUpgradePurchased	= @"co.andbeyond.makeamealofit.fullupgrade";
 
 #endif

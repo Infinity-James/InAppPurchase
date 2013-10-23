@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>bundleDirectory</key>
+		<string>co.andbeyond.makeamealofit.fullupgrade</string>
+		<key>consumable</key>
+		<false/>
+		<key>consumableAmount</key>
+		<integer>0</integer>
+		<key>consumableIdentifier</key>
+		<string></string>
+		<key>iconURL</key>
+		<string>https://si0.twimg.com/profile_images/3693114463/b407c742155565bc5b5a349a2d4a294d.jpeg</string>
+		<key>productIdentifier</key>
+		<string>co.andbeyond.testinginapppurchases.testerupgrade</string>
+	</dict>
+	<dict>
+		<key>bundleDirectory</key>
+		<string></string>
+		<key>consumable</key>
+		<true/>
+		<key>consumableAmount</key>
+		<integer>5</integer>
+		<key>consumableIdentifier</key>
+		<string>co.andbeyond.</string>
+		<key>iconURL</key>
+		<string>https://si0.twimg.com/profile_images/3693114463/b407c742155565bc5b5a349a2d4a294d.jpeg</string>
+		<key>productIdentifier</key>
+		<string>co.andbeyond.testinginapppurchases.testconsumable</string>
+	</dict>
+</array>
+</plist>

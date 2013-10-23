@@ -28,6 +28,11 @@
 		1A4FB47B18151E5700DE00C4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A4FB47A18151E5700DE00C4 /* Images.xcassets */; };
 		1A4FB47D1815602B00DE00C4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A4FB47C1815602B00DE00C4 /* StoreKit.framework */; };
 		1A7D74C81816734C00962686 /* UIView+AutolayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7D74C71816734C00962686 /* UIView+AutolayoutHelper.m */; };
+		1A7D74CD1816DF0B00962686 /* NSArray+PerformSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7D74CC1816DF0B00962686 /* NSArray+PerformSelector.m */; };
+		1A7D74D41817CBD500962686 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7D74D31817CBD500962686 /* NSData+Base64.m */; };
+		1A7D74D71817DD0900962686 /* IAPProductInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7D74D61817DD0900962686 /* IAPProductInfo.m */; };
+		1A7D74D9181833D800962686 /* productInfos.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A7D74D8181833D800962686 /* productInfos.plist */; };
+		1A7D74DD1818417300962686 /* IAPProductPurchaseDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7D74DC1818417300962686 /* IAPProductPurchaseDetails.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +80,15 @@
 		1A4FB47C1815602B00DE00C4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1A7D74C61816734C00962686 /* UIView+AutolayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AutolayoutHelper.h"; sourceTree = "<group>"; };
 		1A7D74C71816734C00962686 /* UIView+AutolayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutolayoutHelper.m"; sourceTree = "<group>"; };
+		1A7D74CB1816DF0B00962686 /* NSArray+PerformSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PerformSelector.h"; sourceTree = "<group>"; };
+		1A7D74CC1816DF0B00962686 /* NSArray+PerformSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PerformSelector.m"; sourceTree = "<group>"; };
+		1A7D74D21817CBD500962686 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		1A7D74D31817CBD500962686 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		1A7D74D51817DD0900962686 /* IAPProductInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPProductInfo.h; sourceTree = "<group>"; };
+		1A7D74D61817DD0900962686 /* IAPProductInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPProductInfo.m; sourceTree = "<group>"; };
+		1A7D74D8181833D800962686 /* productInfos.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = productInfos.plist; sourceTree = "<group>"; };
+		1A7D74DB1818417300962686 /* IAPProductPurchaseDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPProductPurchaseDetails.h; sourceTree = "<group>"; };
+		1A7D74DC1818417300962686 /* IAPProductPurchaseDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPProductPurchaseDetails.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,8 +203,12 @@
 		1A4FB46A18151E2300DE00C4 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				1A7D74D21817CBD500962686 /* NSData+Base64.h */,
+				1A7D74D31817CBD500962686 /* NSData+Base64.m */,
 				1A7D74C61816734C00962686 /* UIView+AutolayoutHelper.h */,
 				1A7D74C71816734C00962686 /* UIView+AutolayoutHelper.m */,
+				1A7D74CB1816DF0B00962686 /* NSArray+PerformSelector.h */,
+				1A7D74CC1816DF0B00962686 /* NSArray+PerformSelector.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -211,8 +229,7 @@
 			children = (
 				1A1B0485181565710068D399 /* Singleton.h */,
 				1A1B0486181565710068D399 /* Singleton.m */,
-				1A1B048C18156EEB0068D399 /* IAPProduct.h */,
-				1A1B048D18156EEB0068D399 /* IAPProduct.m */,
+				1A7D74DA1818411600962686 /* In-App Purchases */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -220,6 +237,7 @@
 		1A4FB46D18151E2300DE00C4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1A7D74D8181833D800962686 /* productInfos.plist */,
 				1A4FB47A18151E5700DE00C4 /* Images.xcassets */,
 			);
 			path = Resources;
@@ -252,6 +270,19 @@
 				1A1B049018159A810068D399 /* ProductCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		1A7D74DA1818411600962686 /* In-App Purchases */ = {
+			isa = PBXGroup;
+			children = (
+				1A7D74DB1818417300962686 /* IAPProductPurchaseDetails.h */,
+				1A7D74DC1818417300962686 /* IAPProductPurchaseDetails.m */,
+				1A1B048C18156EEB0068D399 /* IAPProduct.h */,
+				1A1B048D18156EEB0068D399 /* IAPProduct.m */,
+				1A7D74D51817DD0900962686 /* IAPProductInfo.h */,
+				1A7D74D61817DD0900962686 /* IAPProductInfo.m */,
+			);
+			name = "In-App Purchases";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,6 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A4FB47B18151E5700DE00C4 /* Images.xcassets in Resources */,
+				1A7D74D9181833D800962686 /* productInfos.plist in Resources */,
 				1A4FB47718151E2400DE00C4 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,15 +384,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A7D74DD1818417300962686 /* IAPProductPurchaseDetails.m in Sources */,
 				1A4FB47818151E2400DE00C4 /* main.m in Sources */,
 				1A1B049118159A810068D399 /* ProductCell.m in Sources */,
 				1A1B04941816660F0068D399 /* DetailViewController.m in Sources */,
 				1A1B048B181569220068D399 /* MainViewController.m in Sources */,
 				1A1B0481181560DB0068D399 /* IAPHelper.m in Sources */,
+				1A7D74D71817DD0900962686 /* IAPProductInfo.m in Sources */,
 				1A1B0484181564580068D399 /* SpecificIAPHelper.m in Sources */,
 				1A4FB47618151E2400DE00C4 /* AppDelegate.m in Sources */,
+				1A7D74CD1816DF0B00962686 /* NSArray+PerformSelector.m in Sources */,
 				1A7D74C81816734C00962686 /* UIView+AutolayoutHelper.m in Sources */,
 				1A1B048E18156EEB0068D399 /* IAPProduct.m in Sources */,
+				1A7D74D41817CBD500962686 /* NSData+Base64.m in Sources */,
 				1A1B0487181565710068D399 /* Singleton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

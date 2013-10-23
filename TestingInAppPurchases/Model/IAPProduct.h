@@ -6,6 +6,10 @@
 //  Copyright (c) 2013 &Beyond. All rights reserved.
 //
 
+//	import the iapproduct info because all objects that know about IAPProduct should know about IAPProductInfo
+#import "IAPProductInfo.h"
+#import "IAPProductPurchaseDetails.h"
+
 @class SKProduct;
 
 #pragma mark - IAP Product Public Interface
@@ -15,13 +19,19 @@
 #pragma mark - Public Properties
 
 /**	Whether or not the user is allowed to purchase this item.	*/
-@property (nonatomic, assign, readonly)		BOOL		allowedToPurchase;
+@property (nonatomic, assign, readonly)		BOOL						allowedToPurchase;
 /**	Whether or not this procudt is available for purchase.	*/
-@property (nonatomic, assign)				BOOL		availableForPurchase;
+@property (nonatomic, assign)				BOOL						availableForPurchase;
 /**	The identifier of this product	*/
-@property (nonatomic, strong, readonly)		NSString	*productIdentifier;
+@property (nonatomic, strong, readonly)		NSString					*productIdentifier;
+/**	The information for this product.	*/
+@property (nonatomic, strong)				IAPProductInfo				*productInfo;
+/**	Whether or not this product has already been purchased.	*/
+@property (nonatomic, assign)				IAPProductPurchaseDetails	*purchaseDetails;
+/**	Whether or not this product is currently being purchased.	*/
+@property (nonatomic, assign)				BOOL						purchaseInProgress;
 /**	The StoreKit Product object associated with this product.	*/
-@property (nonatomic, strong)				SKProduct	*skProduct;
+@property (nonatomic, strong)				SKProduct					*skProduct;
 
 #pragma mark - Public Methods
 
@@ -37,11 +47,11 @@
  *	Initializes and returns a newly allocated product object with the specified product identifier.
  *
  *	@param	productIdentifier			The product identifier of this product
- *	@param	skProduct					The SKProduct associated with this IAPProduct.
+ *	@param	productInfo					The information for this IAPProduct.
  *
  *	@return	An initialized view object or nil if the object couldn't be created.
  */
 - (instancetype)initWithProductIdentifier:(NSString *)productIdentifier
-							 andSKProduct:(SKProduct *)skProduct;
+						   andProductInfo:(IAPProductInfo *)productInfo;
 
 @end

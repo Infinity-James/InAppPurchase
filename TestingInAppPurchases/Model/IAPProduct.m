@@ -17,7 +17,7 @@
 #pragma mark - Private Properties
 
 /**	The identifier of this product	*/
-@property (nonatomic, strong, readwrite)		NSString	*productIdentifier;
+@property (nonatomic, strong, readwrite)	NSString		*productIdentifier;
 
 @end
 
@@ -36,25 +36,26 @@
  */
 - (instancetype)initWithProductIdentifier:(NSString *)productIdentifier
 {
-	return [self initWithProductIdentifier:productIdentifier andSKProduct:nil];
+	return [self initWithProductIdentifier:productIdentifier andProductInfo:nil];
 }
 
 /**
  *	Initializes and returns a newly allocated product object with the specified product identifier.
  *
- *	@param	productIdentifier			The identifier of this product
- *	@param	skProduct					The SKProduct associated with this IAPProduct.
+ *	@param	productIdentifier			The product identifier of this product
+ *	@param	productInfo					The information for this IAPProduct.
  *
  *	@return	An initialized view object or nil if the object couldn't be created.
  */
 - (instancetype)initWithProductIdentifier:(NSString *)productIdentifier
-							 andSKProduct:(SKProduct *)skProduct
+						   andProductInfo:(IAPProductInfo *)productInfo
 {
     if (self = [super init])
 	{
 		self.availableForPurchase		= NO;
 		self.productIdentifier			= productIdentifier;
-		self.skProduct					= skProduct;
+		self.productInfo				= productInfo;
+		self.skProduct					= nil;
     }
 	
     return self;
@@ -69,7 +70,10 @@
  */
 - (BOOL)allowedToPurchase
 {
-	return self.availableForPurchase;
+	BOOL purchased						= (!self.productInfo.consumable && self.purchaseDetails);
+	
+	//	it needs to be available, not currently being purchased, needs to have info, and it can't have been purchased
+	return (self.availableForPurchase && !self.purchaseInProgress && self.productInfo && !purchased);
 }
 
 @end

@@ -9,9 +9,46 @@
 #import "IAPProduct.h"
 #import "SpecificIAPHelper.h"
 
+@import StoreKit;
+
 #pragma mark - Specific In-App Purchase Helper Implementation
 
 @implementation SpecificIAPHelper {}
+
+#pragma mark - Content Distribution
+
+/**
+ *	Provides the content at the URL for the product identifier.
+ *
+ *	@param	url							The URL of the file for the unlocked non-consumable in-app purchase.
+ *	@param	productIdentifier			The product identifier relating to the product for which to provide the appropriate content.
+ */
+- (void)provideContentAtURL:(NSURL *)url
+	   forProductIdentifier:(NSString *)productIdentifier
+{
+	if ([productIdentifier rangeOfString:@"upgrade"].location != NSNotFound)
+	{
+		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:[url absoluteString]];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
+}
+
+
+/**
+ *	Unlocks the upgrade for the given product identifier.
+ *
+ *	@param	productIdentifier			The product identifier for the upgrade to unlock.
+ */
+- (void)unlockUpgradeWithProductIdentifier:(NSString *)productIdentifier
+{
+	//	update the product to note that it has been purchased
+	IAPProduct *product					= self.products[productIdentifier];
+	product.purchased					= YES;
+	
+	//	save the fact that this has been bought
+	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:TestingProUpgradePurchased];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 #pragma mark - Initialisation
 
@@ -22,16 +59,29 @@
  */
 - (instancetype)init
 {
-	IAPProduct *upgrade				= [[IAPProduct alloc] initWithProductIdentifier:@"co.andbeyond.testinginapppurchases.testupgrade"];
-	IAPProduct *consumable			= [[IAPProduct alloc] initWithProductIdentifier:@"co.andbeyond.testinginapppurchases.testconsumable"];
-	NSDictionary *products			= @{upgrade.productIdentifier		: upgrade,
-										consumable.productIdentifier	: consumable};
-	if (self = [super initWithProducts:products])
+	if (self = [super initWithProductInfoURL:[[NSBundle mainBundle] URLForResource:@"productInfos" withExtension:@"plist"]])
 	{
-		
+			
 	}
 	
 	return self;
+}
+
+#pragma mark - Status Updating Methods
+
+/**
+ *	Notifies the user of the status of a given product.
+ *
+ *	@param	status						The status to display to the user.
+ *	@param	product						The product for which the update pertains to.
+ */
+- (void)notifyStatus:(NSString *)status forProduct:(IAPProduct *)product
+{
+	[[[UIAlertView alloc] initWithTitle:@"Purchase Update"
+								message:[[NSString alloc] initWithFormat:@"%@ : %@", status, product.skProduct.localizedTitle]
+							   delegate:nil
+					  cancelButtonTitle:@"Cool"
+					  otherButtonTitles:nil] show];
 }
 
 @end

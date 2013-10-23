@@ -21,7 +21,7 @@ static NSString *const CellIdentifier	= @"CellIdentifier";
 
 #pragma mark - Main View Controller Private Class Extension
 
-@interface MainViewController () <UITableViewDataSource, UITableViewDelegate> {}
+@interface MainViewController () <IAPHelperProductObserver, UITableViewDataSource, UITableViewDelegate> {}
 
 #pragma mark - Private Properties
 
@@ -39,6 +39,18 @@ static NSString *const CellIdentifier	= @"CellIdentifier";
 #pragma mark - Main View Controller Implementation
 
 @implementation MainViewController {}
+
+#pragma mark - IAPHelperProductObserver Methods
+
+/**
+ *	Sent to an observer when a product has updated.
+ *
+ *	@param	product						The product which has been updated in some way.
+ */
+- (void)product:(IAPProduct *)product updatedWithStatus:(IAPHelperProductStatusUpdate)statusUpdate
+{
+	[self reload];
+}
 
 #pragma mark - In-App Purchase Management
 
@@ -59,6 +71,14 @@ static NSString *const CellIdentifier	= @"CellIdentifier";
 		
 		[self.refreshControl endRefreshing];
 	}];
+}
+
+/**
+ *
+ */
+- (void)restoreCompletedTransactions
+{
+	[[SpecificIAPHelper sharedInstance] restoreCompletedTransactions];
 }
 
 #pragma mark - Property Accessor Methods - Getters
@@ -133,11 +153,29 @@ static NSString *const CellIdentifier	= @"CellIdentifier";
 	
 	IAPProduct *product					= self.products[indexPath.row];
 	
-	cell.textLabel.text					= product.skProduct.localizedTitle;
-	cell.detailTextLabel.text			= product.skProduct.localizedDescription;
-	cell.priceLabel.text				= [self.priceFormatter stringFromNumber:product.skProduct.price];
+	cell.mainLabel.text					= product.skProduct.localizedTitle;
+	cell.detailLabel.text				= product.skProduct.localizedDescription;
+	cell.iconView.image					= product.productInfo.icon;
+	if (product.purchased)
+		cell.priceLabel.text			= @"Purchased.";
+	else
+		cell.priceLabel.text			= [self.priceFormatter stringFromNumber:product.skProduct.price];
 	
 	return cell;
+}
+
+/**
+ *	Asks the delegate for the height to use for a row in a specified location.
+ *
+ *	@param	tableView					The table-view object requesting this information.
+ *	@param	indexPath					An index path that locates a row in tableView.
+ *
+ *	@return	A floating-point value that specifies the height (in points) that row should be.
+ */
+- (CGFloat)	  tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return 96.0f;
 }
 
 /**
@@ -178,9 +216,40 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	self.title							= @"To The Maximum";
+	BOOL proUpradePurchased				= [[NSUserDefaults standardUserDefaults] boolForKey:TestingProUpgradePurchased];
+	if (proUpradePurchased)
+		self.title						= @"To The Maximum PRO";
+	else
+		self.title						= @"To The Maximum";
 	[self reload];
 	[self.refreshControl beginRefreshing];
+	
+	UIBarButtonItem *restoreItem		= [[UIBarButtonItem alloc] initWithTitle:@"Restore" style:UIBarButtonItemStylePlain target:self action:@selector(restoreCompletedTransactions)];
+	self.navigationItem.rightBarButtonItem	= restoreItem;
+}
+
+/**
+ *	Notifies the view controller that its view is about to be added to a view hierarchy.
+ *
+ *	@param	animated					If YES, the view is being added to the window using an animation.
+ */
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	
+	[[SpecificIAPHelper sharedInstance] addProductObserver:self];
+}
+
+/**
+ *	Notifies the view controller that its view is about to be removed from a view hierarchy.
+ *
+ *	@param	animated					If YES, the disappearance of the view is being animated.
+ */
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+	
+	[[SpecificIAPHelper sharedInstance] removeProductObserver:self];
 }
 
 @end
